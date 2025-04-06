@@ -55,7 +55,7 @@ export default function EventsScreen() {
 
           <View style={styles.qrContainer}>
             <QRCode
-              value={REGISTERED_EVENT.ticketId}
+              value="https://www.mokshansut.com/"
               size={200}
               color="white"
               backgroundColor="transparent"

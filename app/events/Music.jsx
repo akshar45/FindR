@@ -11,16 +11,27 @@ const FEATURED_EVENTS = [
   },
   {
     id: '2',
-    title: 'Food & Wine Festival',
-    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1',
-    date: 'July 20-22',
-    location: 'Downtown District',
+    title: 'Travis Scott',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Travis_Scott_The_DAMN._Tour_%40_TD_Garden_%28Boston%2C_MA%29_%2835709832840%29.jpg/1280px-Travis_Scott_The_DAMN._Tour_%40_TD_Garden_%28Boston%2C_MA%29_%2835709832840%29.jpg',
+    date: 'October 18-19',
+    location: 'JLN',
+  },
+  {
+    id: '3',
+    title: 'Oho Scene Change',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/SeedheMaut%28SM%29.jpg/1280px-SeedheMaut%28SM%29.jpg',
+    date: 'August 5-7',
+    location: 'New Delhi',
+  },
+  {
+    id: '4',
+    title: 'Oblivion',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Sven_Vath_playing_at_Amnesia.JPG/1280px-Sven_Vath_playing_at_Amnesia.JPG',
+    date: 'September 10-12',
+    location: 'Pitampura Vips',
   },
 ];
 
-const CATEGORIES = [
-  'Music', 'Food', 'Arts', 'Sports', 'Technology', 'Wellness'
-];
 
 export default function HomeScreen() {
     const router = useRouter()
@@ -34,9 +45,9 @@ export default function HomeScreen() {
 
         <View style={styles.featuredSection}>
           <Text style={styles.sectionTitle}>Featured Events</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <ScrollView vertical showsVerticalScrollIndicator={false}>
             {FEATURED_EVENTS.map((event) => (
-              <TouchableOpacity key={event.id} style={styles.eventCard}>
+              <TouchableOpacity key={event.id} style={styles.eventCard} onPress={() => router.push({pathname: './eventView', params: { id: event.id, photo: event.image, title: event.title, date: event.date, location: event.location }})}>
                 <Image source={{ uri: event.image }} style={styles.eventImage} />
                 <View style={styles.eventInfo}>
                   <Text style={styles.eventTitle}>{event.title}</Text>
@@ -46,17 +57,6 @@ export default function HomeScreen() {
               </TouchableOpacity>
             ))}
           </ScrollView>
-        </View>
-
-        <View style={styles.categoriesSection}>
-          <Text style={styles.sectionTitle}>Categories</Text>
-          <View style={styles.categoriesGrid}>
-            {CATEGORIES.map((category) => (
-              <TouchableOpacity key={category} style={styles.categoryButton} onPress={()=>router.push({ pathname: `../events/${category}` })}>
-                <Text style={styles.categoryText}>{category}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -95,8 +95,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   eventCard: {
-    width: 280,
-    marginLeft: 20,
+    width: '100%',
+    marginBottom: 20,
+    marginLeft: 5,
     marginRight: 10,
     backgroundColor: '#1a1a1a',
     borderRadius: 12,

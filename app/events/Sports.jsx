@@ -4,23 +4,34 @@ import { useRouter } from 'expo-router';
 const FEATURED_EVENTS = [
   {
     id: '1',
-    title: 'Summer Music Festival',
-    image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3',
+    title: 'Food Fest',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/7/77/GBBF_full.jpg',
     date: 'June 15-17',
     location: 'Central Park',
   },
   {
     id: '2',
-    title: 'Food & Wine Festival',
-    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1',
-    date: 'July 20-22',
-    location: 'Downtown District',
+    title: 'Hot Dog Fest',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Hot_Dog_Day_2007_1.jpg',
+    date: 'October 18-19',
+    location: 'JLN',
+  },
+  {
+    id: '3',
+    title: 'Mushroom Mardi',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/MushroomMardiGrasFestival.jpg',
+    date: 'August 5-7',
+    location: 'New Delhi',
+  },
+  {
+    id: '4',
+    title: 'Jamaican Seafood Festival',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Jamaican_seafood_and_festival.jpg',
+    date: 'September 10-12',
+    location: 'Pitampura Vips',
   },
 ];
 
-const CATEGORIES = [
-  'Music', 'Food', 'Arts', 'Sports', 'Technology', 'Wellness'
-];
 
 export default function HomeScreen() {
     const router = useRouter()
@@ -34,9 +45,9 @@ export default function HomeScreen() {
 
         <View style={styles.featuredSection}>
           <Text style={styles.sectionTitle}>Featured Events</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <ScrollView vertical showsVerticalScrollIndicator={false}>
             {FEATURED_EVENTS.map((event) => (
-              <TouchableOpacity key={event.id} style={styles.eventCard}>
+              <TouchableOpacity key={event.id} style={styles.eventCard} onPress={() => router.push({pathname: './eventView', params: { id: event.id, photo: event.image, title: event.title, date: event.date, location: event.location }})}>
                 <Image source={{ uri: event.image }} style={styles.eventImage} />
                 <View style={styles.eventInfo}>
                   <Text style={styles.eventTitle}>{event.title}</Text>
@@ -46,17 +57,6 @@ export default function HomeScreen() {
               </TouchableOpacity>
             ))}
           </ScrollView>
-        </View>
-
-        <View style={styles.categoriesSection}>
-          <Text style={styles.sectionTitle}>Categories</Text>
-          <View style={styles.categoriesGrid}>
-            {CATEGORIES.map((category) => (
-              <TouchableOpacity key={category} style={styles.categoryButton} onPress={()=>router.push({ pathname: `../events/${category}` })}>
-                <Text style={styles.categoryText}>{category}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -95,8 +95,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   eventCard: {
-    width: 280,
-    marginLeft: 20,
+    width: '100%',
+    marginBottom: 20,
+    marginLeft: 5,
     marginRight: 10,
     backgroundColor: '#1a1a1a',
     borderRadius: 12,
